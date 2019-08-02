@@ -1,0 +1,25 @@
+---
+resource_types:
+  - name: kaniko-resource
+    type: docker-image
+    source:
+      repository: kbristow/concourse-kaniko-resource
+resources:
+  - name: source-repo
+    type: git
+    source:
+      branch: master
+      uri: git@github.com:kbristow/Concourse-HelloWorld.git
+  - name: kaniko-build
+    type: kaniko-resource
+jobs:
+  - name: build-source
+    serial: true
+    plan:
+      - get: source-repo
+        trigger: true
+      - put: kaniko-build
+        params:
+          image_name: concourse-hello-world
+          build_context: source-repo
+          registry: registry.kube-system.svc.cluster.local:80
