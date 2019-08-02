@@ -9,7 +9,7 @@ resources:
     type: git
     source:
       branch: master
-      uri: git@github.com:kbristow/Concourse-HelloWorld.git
+      uri: https://github.com/kbristow/Concourse-HelloWorld.git
   - name: kaniko-build
     type: kaniko-resource
 jobs:
